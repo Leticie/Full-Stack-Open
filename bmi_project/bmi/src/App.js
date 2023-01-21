@@ -1,20 +1,11 @@
 import { useState } from "react";
 import { ImperialBMICalculator } from "./components/ImperialBMICalculator";
 import { MetricBMICalculator } from "./components/MetricBMICalculator";
+import { AppDecription } from "./components/AppDescription";
 
-const AppDecription = () => (
-  <div>
-    <p>
-      Enter data to know your BMI. Your BMI score can belong to four categories:
-      underweight, normal weight, overweight and obese. Note that although BMI is
-      a useful tool for indicating health problems, it serves only as an
-      orientation. For futher details consult your doctor rather that the
-      internet. Remember, your body does not determine the love that you deserve.
-    </p>
-  </div>
-);
 
-const MeasurementInfo = ({measurement}) => {
+
+const MeasurementInfo = ({ measurement }) => {
   if (measurement === "metric") {
     return (
       <p>
@@ -31,7 +22,7 @@ const MeasurementInfo = ({measurement}) => {
   );
 };
 
-const BmiZoneInfo = ({bmiZone}) => {
+const BmiZoneInfo = ({ bmiZone }) => {
   if (bmiZone == 1) {
     return <p> The BMI score indicates that you might be underweight. </p>;
   }
@@ -44,7 +35,7 @@ const BmiZoneInfo = ({bmiZone}) => {
   if (bmiZone == 4) {
     return <p> The BMI score indicates that you might be obese. </p>;
   }
-  return "";
+  return null;
 };
 
 const SelectedBMICalculator = ({
@@ -56,7 +47,7 @@ const SelectedBMICalculator = ({
   handleChangeBmi,
   bmi,
   determineBmiZone,
-  handleChangeBmiZone
+  handleChangeBmiZone,
 }) => {
   if (newMeasurement === "metric") {
     return (
@@ -93,11 +84,11 @@ const calculateBmi = (weight, height, handleChangeBmi) => {
     const heightInMeters = height / 100;
     const bmiMetric = weight / (heightInMeters * heightInMeters);
     const bmiMetricRounded = bmiMetric.toFixed(2);
-    handleChangeBmi(bmiMetricRounded)
-  } 
+    handleChangeBmi(bmiMetricRounded);
+  }
 };
 
-const BmiDisplay = ({bmi}) => (
+const BmiDisplay = ({ bmi }) => (
   <div>
     <p>BMI: {bmi}</p>
   </div>
@@ -118,19 +109,19 @@ const determineBmiZone = (bmi, handleChangeBmiZone) => {
   }
 };
 
-const BmiZoneDisplay = ({bmiZone}) => (
+const BmiZoneDisplay = ({ bmiZone }) => (
   <div>
     <p>Zone: {bmiZone}</p>
   </div>
 );
 
-const ResultsDisplay = ({bmi, bmiZone}) => (
+const ResultsDisplay = ({ bmi, bmiZone }) => (
   <div>
     <BmiDisplay bmi={bmi} />
     <BmiZoneDisplay bmiZone={bmiZone} />
     <BmiZoneInfo bmiZone={bmiZone} />
-  </div> 
-)
+  </div>
+);
 
 const App = () => {
   const [newMeasurement, setNewMeasurement] = useState("metric");
@@ -151,8 +142,6 @@ const App = () => {
   const handleChangeHeightCentimeters = (value) => setHeightCentimeters(value);
   const handleChangeBmi = (value) => setBmi(value);
   const handleChangeBmiZone = (value) => setBmiZone(value);
-
-
 
   return (
     <div>
