@@ -1,52 +1,12 @@
 import { useState } from "react";
-import { ImperialBMICalculator } from "./components/ImperialBMICalculator";
-import { MetricBMICalculator } from "./components/MetricBMICalculator";
 import { AppDecription } from "./components/AppDescription";
 import { MeasurementInfo } from "./components/MeasurementInfo";
-import { BmiZoneInfo } from "./components/BmiZoneInfo";
+import { SelectedBMICalculator } from "./components/SelectedBmiCalculator";
+import { ResultsDisplay } from "./components/Display";
 
 
 
-const SelectedBMICalculator = ({
-  newMeasurement,
-  handleChangeWeight,
-  handleChangeHeightCentimeters,
-  weight,
-  heightCentimeters,
-  handleChangeBmi,
-  bmi,
-  determineBmiZone,
-  handleChangeBmiZone,
-}) => {
-  if (newMeasurement === "metric") {
-    return (
-      <MetricBMICalculator
-        weight={weight}
-        setWeight={handleChangeWeight}
-        heightCentimeters={heightCentimeters}
-        setHeightCentimeters={handleChangeHeightCentimeters}
-        calculateBmi={calculateBmi}
-        handleChangeBmi={handleChangeBmi}
-        bmi={bmi}
-        determineBmiZone={determineBmiZone}
-        handleChangeBmiZone={handleChangeBmiZone}
-      />
-    );
-  }
-  return (
-    <ImperialBMICalculator
-      weight={weight}
-      setWeight={handleChangeWeight}
-      heightCentimeters={heightCentimeters}
-      setHeightCentimeters={handleChangeHeightCentimeters}
-      calculateBmi={calculateBmi}
-      handleChangeBmi={handleChangeBmi}
-      bmi={bmi}
-      determineBmiZone={determineBmiZone}
-      handleChangeBmiZone={handleChangeBmiZone}
-    />
-  );
-};
+
 
 const calculateBmi = (weight, height, handleChangeBmi) => {
   if (height != 0) {
@@ -57,11 +17,7 @@ const calculateBmi = (weight, height, handleChangeBmi) => {
   }
 };
 
-const BmiDisplay = ({ bmi }) => (
-  <div>
-    <p>BMI: {bmi}</p>
-  </div>
-);
+
 
 const determineBmiZone = (bmi, handleChangeBmiZone) => {
   if (bmi < 18.5) {
@@ -78,19 +34,7 @@ const determineBmiZone = (bmi, handleChangeBmiZone) => {
   }
 };
 
-const BmiZoneDisplay = ({ bmiZone }) => (
-  <div>
-    <p>Zone: {bmiZone}</p>
-  </div>
-);
 
-const ResultsDisplay = ({ bmi, bmiZone }) => (
-  <div>
-    <BmiDisplay bmi={bmi} />
-    <BmiZoneDisplay bmiZone={bmiZone} />
-    <BmiZoneInfo bmiZone={bmiZone} />
-  </div>
-);
 
 const App = () => {
   const [newMeasurement, setNewMeasurement] = useState("metric");
