@@ -4,20 +4,21 @@ import { MeasurementInfo } from "./components/MeasurementInfo";
 import { SelectedBMICalculator } from "./components/SelectedBMICalculator";
 import { ResultsDisplay } from "./components/Display";
 import { determineBmiZone } from "./helpers/BmiHelpers";
+import { IMPERIAL, METRIC } from "./constants/constants";
 
 
 const App = () => {
-  const [newMeasurement, setNewMeasurement] = useState("metric");
+  const [newMeasurement, setNewMeasurement] = useState(METRIC);
   const [weight, setWeight] = useState("");
   const [heightCentimeters, setHeightCentimeters] = useState("");
   const [bmi, setBmi] = useState("");
   const [bmiZone, setBmiZone] = useState("");
 
   const switchMeasurementSystem = () => {
-    if (newMeasurement === "metric") {
-      setNewMeasurement("imperial");
+    if (newMeasurement === METRIC) {
+      setNewMeasurement(IMPERIAL);
     } else {
-      setNewMeasurement("metric");
+      setNewMeasurement(METRIC);
     }
   };
 

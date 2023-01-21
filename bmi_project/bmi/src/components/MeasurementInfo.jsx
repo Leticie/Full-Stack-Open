@@ -1,5 +1,7 @@
+import { METRIC } from "../constants/constants";
+
 export const MeasurementInfo = ({ measurement }) => {
-    if (measurement === "metric") {
+    if (measurement === METRIC) {
       return (
         <p>
           You can now enter data in kilos (kg) and centimeters (cm). If you wish

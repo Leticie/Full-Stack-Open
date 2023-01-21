@@ -1,6 +1,7 @@
 import { ImperialBMICalculator } from "./ImperialBMICalculator";
 import { MetricBMICalculator } from "./MetricBMICalculator";
 import { calculateBmi } from "../helpers/BmiHelpers";
+import { METRIC } from "../constants/constants";
 
 export const SelectedBMICalculator = ({
     newMeasurement,
@@ -13,7 +14,7 @@ export const SelectedBMICalculator = ({
     determineBmiZone,
     handleChangeBmiZone,
   }) => {
-    if (newMeasurement === "metric") {
+    if (newMeasurement === METRIC) {
       return (
         <MetricBMICalculator
           weight={weight}
