@@ -2,41 +2,10 @@ import { useState } from "react";
 import { ImperialBMICalculator } from "./components/ImperialBMICalculator";
 import { MetricBMICalculator } from "./components/MetricBMICalculator";
 import { AppDecription } from "./components/AppDescription";
+import { MeasurementInfo } from "./components/MeasurementInfo";
+import { BmiZoneInfo } from "./components/BmiZoneInfo";
 
 
-
-const MeasurementInfo = ({ measurement }) => {
-  if (measurement === "metric") {
-    return (
-      <p>
-        You can now enter data in kilos (kg) and centimeters (cm). If you wish
-        to switch to feets (ft) and pounds (lbs), click the button.
-      </p>
-    );
-  }
-  return (
-    <p>
-      You can now enter data in feet (ft) and pounds (lbs). If you wish to
-      switch to kilos (kg) and centimeters (cm), click the button.
-    </p>
-  );
-};
-
-const BmiZoneInfo = ({ bmiZone }) => {
-  if (bmiZone == 1) {
-    return <p> The BMI score indicates that you might be underweight. </p>;
-  }
-  if (bmiZone == 2) {
-    return <p> The BMI score indicates that you weight is optimal. </p>;
-  }
-  if (bmiZone == 3) {
-    return <p> The BMI score indicates that you might be overweight. </p>;
-  }
-  if (bmiZone == 4) {
-    return <p> The BMI score indicates that you might be obese. </p>;
-  }
-  return null;
-};
 
 const SelectedBMICalculator = ({
   newMeasurement,
