@@ -1,3 +1,4 @@
+import { BmiZoneInfo } from "./BmiZoneInfo";
 const BmiDisplay = ({ bmi }) => (
     <div>
       <p>BMI: {bmi}</p>

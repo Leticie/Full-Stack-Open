@@ -1,39 +1,9 @@
 import { useState } from "react";
 import { AppDecription } from "./components/AppDescription";
 import { MeasurementInfo } from "./components/MeasurementInfo";
-import { SelectedBMICalculator } from "./components/SelectedBmiCalculator";
+import { SelectedBMICalculator } from "./components/SelectedBMICalculator";
 import { ResultsDisplay } from "./components/Display";
-
-
-
-
-
-const calculateBmi = (weight, height, handleChangeBmi) => {
-  if (height != 0) {
-    const heightInMeters = height / 100;
-    const bmiMetric = weight / (heightInMeters * heightInMeters);
-    const bmiMetricRounded = bmiMetric.toFixed(2);
-    handleChangeBmi(bmiMetricRounded);
-  }
-};
-
-
-
-const determineBmiZone = (bmi, handleChangeBmiZone) => {
-  if (bmi < 18.5) {
-    handleChangeBmiZone(1);
-  }
-  if (bmi < 25) {
-    handleChangeBmiZone(2);
-  }
-  if (bmi < 30) {
-    handleChangeBmiZone(3);
-  }
-  if (bmi >= 30) {
-    handleChangeBmiZone(4);
-  }
-};
-
+import { determineBmiZone } from "./helpers/BmiHelpers";
 
 
 const App = () => {

@@ -1,5 +1,6 @@
-import { ImperialBMICalculator } from "./components/ImperialBMICalculator";
-import { MetricBMICalculator } from "./components/MetricBMICalculator";
+import { ImperialBMICalculator } from "./ImperialBMICalculator";
+import { MetricBMICalculator } from "./MetricBMICalculator";
+import { calculateBmi } from "../helpers/BmiHelpers";
 
 export const SelectedBMICalculator = ({
     newMeasurement,
