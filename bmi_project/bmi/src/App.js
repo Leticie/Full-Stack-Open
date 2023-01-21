@@ -3,16 +3,18 @@ import { ImperialBMICalculator } from "./components/ImperialBMICalculator";
 import { MetricBMICalculator } from "./components/MetricBMICalculator";
 
 const AppDecription = () => (
-  <p>
-    Enter data to know your BMI. Your BMI score can belong to four categories:
-    underweight, normal weight, overweight and obese. Note that although BMI is
-    a useful tool for indicating health problems, it serves only as an
-    orientation. For futher details consult your doctor rather that the
-    internet. Remember, your body does not determine the love that you deserve.
-  </p>
+  <div>
+    <p>
+      Enter data to know your BMI. Your BMI score can belong to four categories:
+      underweight, normal weight, overweight and obese. Note that although BMI is
+      a useful tool for indicating health problems, it serves only as an
+      orientation. For futher details consult your doctor rather that the
+      internet. Remember, your body does not determine the love that you deserve.
+    </p>
+  </div>
 );
 
-const MeasurementInfo = (measurement) => {
+const MeasurementInfo = ({measurement}) => {
   if (measurement === "metric") {
     return (
       <p>
@@ -24,12 +26,12 @@ const MeasurementInfo = (measurement) => {
   return (
     <p>
       You can now enter data in feet (ft) and pounds (lbs). If you wish to
-      switch to kilos (kg) and meters (m), click the button.
+      switch to kilos (kg) and centimeters (cm), click the button.
     </p>
   );
 };
 
-const BmiZoneInfo = (bmiZone) => {
+const BmiZoneInfo = ({bmiZone}) => {
   if (bmiZone == 1) {
     return <p> The BMI score indicates that you might be underweight. </p>;
   }
@@ -50,9 +52,11 @@ const SelectedBMICalculator = ({
   handleChangeWeight,
   handleChangeHeightCentimeters,
   weight,
-  setWeight,
   heightCentimeters,
-  setHeightCentimeters,
+  handleChangeBmi,
+  bmi,
+  determineBmiZone,
+  handleChangeBmiZone
 }) => {
   if (newMeasurement === "metric") {
     return (
@@ -61,62 +65,72 @@ const SelectedBMICalculator = ({
         setWeight={handleChangeWeight}
         heightCentimeters={heightCentimeters}
         setHeightCentimeters={handleChangeHeightCentimeters}
+        calculateBmi={calculateBmi}
+        handleChangeBmi={handleChangeBmi}
+        bmi={bmi}
+        determineBmiZone={determineBmiZone}
+        handleChangeBmiZone={handleChangeBmiZone}
       />
     );
   }
   return (
     <ImperialBMICalculator
+      weight={weight}
       setWeight={handleChangeWeight}
+      heightCentimeters={heightCentimeters}
       setHeightCentimeters={handleChangeHeightCentimeters}
+      calculateBmi={calculateBmi}
+      handleChangeBmi={handleChangeBmi}
+      bmi={bmi}
+      determineBmiZone={determineBmiZone}
+      handleChangeBmiZone={handleChangeBmiZone}
     />
   );
 };
 
-const calculateBmi = (weight, height) => {
+const calculateBmi = (weight, height, handleChangeBmi) => {
   if (height != 0) {
     const heightInMeters = height / 100;
     const bmiMetric = weight / (heightInMeters * heightInMeters);
     const bmiMetricRounded = bmiMetric.toFixed(2);
-    return bmiMetricRounded;
-  }
-  return ""  
+    handleChangeBmi(bmiMetricRounded)
+  } 
 };
 
-const BmiDisplay = ({bmi, weight, height, handleChangeBmi}) => { 
-  const calculatedBmi = calculateBmi(weight, height);
-  handleChangeBmi(calculatedBmi)
-  return <p>{bmi}</p>;
-};
+const BmiDisplay = ({bmi}) => (
+  <div>
+    <p>BMI: {bmi}</p>
+  </div>
+);
 
-const determineBmiZone = (bmi) => {
-  if (bmi < 14) {
-    return ""
-  }
+const determineBmiZone = (bmi, handleChangeBmiZone) => {
   if (bmi < 18.5) {
-    return 1;
+    handleChangeBmiZone(1);
   }
   if (bmi < 25) {
-    return 2;
+    handleChangeBmiZone(2);
   }
   if (bmi < 30) {
-    return 3;
+    handleChangeBmiZone(3);
   }
   if (bmi >= 30) {
-    return 4;
+    handleChangeBmiZone(4);
   }
-  return ""  
 };
 
-const BmiZoneDisplay = ({bmi, bmiZone, handleChangeBmiZone}) => {
-  const determinedBmiZone = determineBmiZone(bmi)
-  handleChangeBmiZone(determinedBmiZone)
-  return (
-    <div>
-      <p>{bmiZone}</p>
-      <BmiZoneInfo bmiZone={bmiZone} />
-    </div>
-  );
-}
+const BmiZoneDisplay = ({bmiZone}) => (
+  <div>
+    <p>Zone: {bmiZone}</p>
+  </div>
+);
+
+const ResultsDisplay = ({bmi, bmiZone}) => (
+  <div>
+    <BmiDisplay bmi={bmi} />
+    <BmiZoneDisplay bmiZone={bmiZone} />
+    <BmiZoneInfo bmiZone={bmiZone} />
+  </div> 
+)
 
 const App = () => {
   const [newMeasurement, setNewMeasurement] = useState("metric");
@@ -142,7 +156,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>RAFF BMI CALCULATOR</h1>
+      <h1>BMI CALCULATOR</h1>
       <AppDecription />
       <MeasurementInfo measurement={newMeasurement} />
       <button onClick={switchMeasurementSystem}>switch</button>
@@ -151,18 +165,13 @@ const App = () => {
         handleChangeWeight={handleChangeWeight}
         handleChangeHeightCentimeters={handleChangeHeightCentimeters}
         weight={weight}
-        setWeight={setWeight}
         heightCentimeters={heightCentimeters}
-        setHeightCentimeters={setHeightCentimeters}
-      />
-      <BmiDisplay
-        bmi={bmi}
-        weight={weight}
-        height={heightCentimeters}
         handleChangeBmi={handleChangeBmi}
+        bmi={bmi}
+        determineBmiZone={determineBmiZone}
+        handleChangeBmiZone={handleChangeBmiZone}
       />
-      <BmiZoneDisplay bmi={bmi} bmiZone={bmiZone} handleChangeBmiZone={handleChangeBmiZone}/>
-      <BmiZoneInfo bmiZone={bmiZone} />
+      <ResultsDisplay bmi={bmi} bmiZone={bmiZone} />
     </div>
   );
 };

@@ -1,27 +1,31 @@
 
-export const MetricBMICalculator = ({weight, setWeight, heightCentimeters, setHeightCentimeters}) => {
+export const MetricBMICalculator = ({weight, setWeight, heightCentimeters, setHeightCentimeters, calculateBmi, handleChangeBmi, bmi, determineBmiZone, handleChangeBmiZone}) => {
 
-    const handleSubmit = (event) => {
+    const handleChangeWeight = (event) => setWeight(event.target.value);
+    const handleChangeHeightCentimeters = (event) => setHeightCentimeters(event.target.value);
+    
+    const handleClick = (event) => {
         event.preventDefault()
 
+        calculateBmi(weight, heightCentimeters, handleChangeBmi)
+        determineBmiZone(bmi, handleChangeBmiZone)
         setWeight('')
         setHeightCentimeters('')
     }
 
-    const handleChangeWeight = (event) => setWeight(event.target.value);
-    const handleChangeHeightCentimeters = (event) => setHeightCentimeters(event.target.value);
-
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <h3>Weight</h3>
                     <input type="number" value={weight} onChange={handleChangeWeight}></input>
+                    <p>kg</p>
                 <h3>Height</h3>
                     <input type="number" value={heightCentimeters} onChange={handleChangeHeightCentimeters}></input>
+                    <p>cm</p>
                 <div>
-                    <button type="submit">submit</button>
+                    <button onClick={handleClick}>submit</button>
                 </div>  
-            </form>
+            </form>    
         </div>
     )
 
