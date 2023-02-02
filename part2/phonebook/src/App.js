@@ -1,18 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Persons } from "./components/Persons";
 import { Filter } from "./components/Filter";
 import { PersonForm } from "./components/PersonForm";
 import { isNameDuplicated } from "./helpers/helpers";
+import axios from 'axios'
 
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", number: "040-1234567" },
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [searchedName, setSearchedName] = useState("");
   const [showAll, setShowAll] = useState(true);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons').then(response => {
+        setPersons(response.data)
+      })
+  }, [])
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
