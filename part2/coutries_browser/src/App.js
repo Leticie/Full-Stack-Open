@@ -15,7 +15,7 @@ function App() {
   }, [])
 
 
-  const countriesToShow = showedCountries.length
+  const countriesToShow = showedCountries
   ? countriesList
   : countriesList.filter(country => country.name.common.toLowerCase().includes(searchedCountry.toLowerCase()));  
 
