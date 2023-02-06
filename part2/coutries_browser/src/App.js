@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
+import { CountriesDisplay } from "./components/CountriesDisplay";
 
 function App() {
   const [countriesList, setCountriesList] = useState([])
@@ -24,55 +25,13 @@ function App() {
     setCountriesToShow(true)
   }
 
-  const CountriesDisplay = () => {
-    if (countriesToShow.length == 1) {
-      return (
-        <CountryInfo />
-      )  
-    }
-    if (countriesToShow.length < 11) {
-      return (
-        <div>
-          {countriesToShow.map(country => (
-            <div key={country.name.common}>
-              <p>{country.name.common}</p>
-            </div>  
-          ))}
-        </div>
-      )  
-    } else {
-      return (
-        <div>
-          <p>Too many matches, specify another filter</p>
-        </div>
-      )  
-    }     
-  }
-
-  const CountryInfo = () => {
-    const country = countriesToShow[0]
-    console.log(country)
-    return (
-    <div>
-      <h1>{country.name.common}</h1>
-      <p>capital {country.capital}</p>
-      <p>area {country.area}</p>
-      <p>languages</p>
-      <ul>
-        {Object.keys(country.languages).map(key => 
-          <li key={key}>{country.languages[key]}</li>
-        )}
-      </ul>
-      <img src={country.flags.png} />
-    </div>
-  )}
 
   return (
     <div>
       <form>
         find countries <input onChange={handleChangeFilter}/>
       </form>
-      <CountriesDisplay />
+      <CountriesDisplay countriesToShow={countriesToShow}/>
     </div>
   );
 }
