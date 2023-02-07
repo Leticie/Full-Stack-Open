@@ -1,39 +1,29 @@
 import { CountryInfo } from "./CountryInfo"
 import { useState } from "react"
-
+import { MAX_DISPLAYED_COUTNRIES } from "../constants/constants"
+import { CountriesList } from "./CountriesList"
 
 export const CountriesDisplay = ({countriesToShow}) => {
   const [selectedCountry, setSelectedCountry] = useState([])
   const [buttonClicked, setButtonClicked] = useState(false)
 
-  const handleChange = (country) => {
+  const handleClick = (country) => {
     setSelectedCountry(country)
     setButtonClicked(true)
   }
 
-
-  if (buttonClicked === true) {
-    console.log(selectedCountry)
+  if (buttonClicked) {
     return (
       <CountryInfo country={selectedCountry}/>
     )
   }  
-  if (countriesToShow.length < 11) {
+  if (countriesToShow.length < MAX_DISPLAYED_COUTNRIES) {
     return (
-      <div>
-        {countriesToShow.map(country => (      
-          <div key={country.name.common}>
-            <p>{country.name.common}</p>
-            <button onClick={() => handleChange(country)}>show</button>
-          </div>  
-        ))}
-      </div>
+      <CountriesList countriesToShow={countriesToShow} handleClick={handleClick} />
     )  
   } else {
     return (
-      <div>
-        <p>Too many matches, specify another filter</p>
-      </div>
+      <p>Too many matches, specify another filter</p>
     )  
   }     
 }
