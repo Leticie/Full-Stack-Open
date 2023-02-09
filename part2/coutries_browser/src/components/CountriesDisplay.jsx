@@ -4,16 +4,28 @@ import { MAX_DISPLAYED_COUTNRIES } from "../constants/constants"
 import { CountriesList } from "./CountriesList"
 import { WeatherCapital } from "./WeatherCapital"
 import { getCapitalCoordinates } from "../helpers/helpers"
+import axios from "axios"
+import { countriesToShowFilter } from "../helpers/helpers"
 
-export const CountriesDisplay = ({countriesToShow, searchedCountry}) => {
+export const CountriesDisplay = ({searchedCountry, filter}) => {
   const [selectedCountry, setSelectedCountry] = useState([])
   const [buttonClicked, setButtonClicked] = useState(false)
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const [countriesList, setCountriesList] = useState([]);
 
   useEffect(() => {
     setButtonClicked(false)
   },[searchedCountry])
+
+  useEffect(() => {
+    axios.get("https://restcountries.com/v3.1/all").then((response) => {
+      setCountriesList(response.data);
+    });
+  }, []);
+
+
+  const countriesToShow = countriesToShowFilter(filter, countriesList, searchedCountry);
 
   const handleClick = (country) => {
     setSelectedCountry(country)
