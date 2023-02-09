@@ -18,11 +18,11 @@ export const WeatherCapital = ({country, latitude, longitude}) => {
       }
 
     return (
-        <div>
-            <h2>Weather in {country.capital}</h2>
-            <p>temperature {weatherInfo.main.temp} Celsius</p>
-            <img src={`http://openweathermap.org/img/wn/${weatherInfo.weather[0].icon}@2x.png`}/>
-            <p>wind {weatherInfo.wind.speed} m/s</p>
-        </div>
+      <div>
+          <h2>Weather in {country.capital}</h2>
+          <p>temperature {weatherInfo.main.temp} Celsius</p>
+          <img src={`http://openweathermap.org/img/wn/${weatherInfo.weather[0].icon}@2x.png`} alt="weather icon "/>
+          <p>wind {weatherInfo.wind.speed} m/s</p>
+      </div>
     )  
 }
