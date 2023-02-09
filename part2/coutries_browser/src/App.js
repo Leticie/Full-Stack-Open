@@ -4,8 +4,8 @@ import { CountriesDisplay } from "./components/CountriesDisplay";
 
 function App() {
   const [countriesList, setCountriesList] = useState([]);
-  const [searchedCountry, setSearchedCountry] = useState([]);
-  const [showFilter, setCountriesToShow] = useState(false);
+  const [searchedCountry, setSearchedCountry] = useState("");
+  const [filter, setFilter] = useState(false);
 
   useEffect(() => {
     axios
@@ -15,7 +15,7 @@ function App() {
     });
   }, []);
 
-  const countriesToShow = showFilter
+  const countriesToShow = filter
     ? countriesList.filter((country) =>
         country.name.common
           .toLowerCase()
@@ -25,7 +25,7 @@ function App() {
 
   const handleChangeFilter = (event) => {
     setSearchedCountry(event.target.value);
-    setCountriesToShow(true);
+    setFilter(true);
   };
 
 
@@ -35,7 +35,7 @@ function App() {
         find countries <input onChange={handleChangeFilter} />
       </form>
       <CountriesDisplay
-        countriesToShow={countriesToShow}
+        countriesToShow={countriesToShow} searchedCountry={searchedCountry}
       />
     </div>
   );
