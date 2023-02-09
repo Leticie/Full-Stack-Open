@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CountriesDisplay } from "./components/CountriesDisplay";
+import { Filter } from "./components/Filter";
 
 function App() {
   const [searchedCountry, setSearchedCountry] = useState("");
@@ -11,15 +12,13 @@ function App() {
   };
 
   return (
-    <div>
-      <form>
-        find countries <input onChange={handleChangeFilter} />
-      </form>
+    <>
+      <Filter handleChangeFilter={handleChangeFilter}/>
       <CountriesDisplay
         searchedCountry={searchedCountry}
         filter={filter}
       />
-    </div>
+    </>
   );
 }
 

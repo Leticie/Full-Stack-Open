@@ -3,7 +3,7 @@ export const getCapitalCoordinates = (country, handleLatitudeChange, handleLongi
     handleLongitudeChange(country.capitalInfo.latlng[1]);
 };
 
-export const countriesToShowFilter = (filter, countriesList, searchedCountry) =>
+export const countriesToShowFilter = (filter, countriesList, searchedCountry) => 
     filter
         ? countriesList.filter((country) =>
             country.name.common
